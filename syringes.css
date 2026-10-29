@@ -1,0 +1,42 @@
+.syringes-page .product-content{max-width:864px}
+.syringes-page .syringes-hero{height:370px;padding:0;position:relative}
+.syringes-hero-art{position:relative;width:864px;height:370px;flex-shrink:0}
+.hero-syringe{position:absolute;overflow:hidden}
+.syringes-page .hero-syringe img{position:absolute;max-width:none;min-height:0;object-fit:fill;height:100%;top:0}
+.hero-syringe-0{left:448.58px;top:20.71px;width:63.565px;height:292.03px}
+.hero-syringe-0 img{left:-221.26%;width:459.42%}
+.hero-syringe-1{left:387.4px;top:20.71px;width:62.121px;height:289.594px}
+.hero-syringe-1 img{left:-177.7%;width:466.18%}
+.hero-syringe-2{left:219px;top:115.1px;width:194.889px;height:194.889px}
+.hero-syringe-2 img{left:0;width:100%}
+.hero-syringe-3{left:333.46px;top:44.46px;width:52.681px;height:271.627px}
+.hero-syringe-3 img{left:0;width:515.61%}
+.hero-syringe-4{left:499.42px;top:7px;width:95.313px;height:317px}
+.hero-syringe-4 img{left:0;width:100%}
+.syringes-page .product-copy{margin-top:16px}
+.syringes-page .product-copy h1,.syringes-page .product-copy h2{font-size:32px;line-height:48px}
+.syringes-page .product-copy p{font-size:16px;line-height:24px;margin:3px 0 14px}
+.syringes-page .product-copy .variant-label{font-size:14px;margin:8px 0 29px;line-height:21px}
+.syringes-page .syringe-grid{gap:12px 18px}
+.syringes-page .syringe-card{height:313px;padding:19px;position:relative}
+.syringe-crop{position:relative;overflow:hidden;display:block}
+.syringe-crop img{position:absolute;max-width:none;object-fit:contain}
+.syringes-page .syringe-card h3{font-size:18px;line-height:24px;margin:18px 0 0}
+.syringes-page .syringe-card.long-title h3{font-size:15px;line-height:20px;margin-top:5px}
+.syringes-page .syringe-card p{position:absolute;bottom:20px;left:19px;font-size:12px;font-family:'Poppins:Medium',sans-serif}
+.syringe-card p img{width:8px;height:8px}
+.syringes-page .benefits{margin-top:37px;min-height:202px;padding:17px 27px}
+.syringes-page .benefits h2{font-size:26px}
+.syringes-page .benefits li{font-size:14px;line-height:28px}
+.syringes-page .benefits li::before{background:url('./assets/syringes/9ae5a.svg') center/contain no-repeat;width:8px;height:8px}
+.syringe-card[href]:hover{border-color:var(--teal)}
+.syringe-card[href]:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+@media(max-width:1100px){.syringes-page .syringes-hero{height:300px}.syringes-hero-art{transform:scale(.8)}}
+@media(max-width:600px){.syringes-page .syringes-hero{height:240px}.syringes-hero-art{transform:scale(.6)}.syringes-page .syringe-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.syringes-page .syringe-card{padding:12px}.syringes-page .syringe-card h3{font-size:16px}.syringes-page .syringe-card.long-title h3{font-size:13px}.syringes-page .product-copy h1,.syringes-page .product-copy h2{font-size:26px}.syringes-page .benefits h2{font-size:22px}}
+.syringes-page .category{min-height:56px;font-size:14px}
+.syringes-page .category-number{font-size:12px}
+.syringes-page .filter-card{padding-top:18px;padding-bottom:40px}
+.syringes-page .filter-card h2{font-size:24px;line-height:36px;margin:2px 0 10px}
+.syringes-page .help-card strong{font-size:22px}
+.syringes-page .syringe-card.long-title p{bottom:14px}
+@media(max-width:600px){.syringes-page .category{font-size:12px}.syringes-page .filter-card{padding-bottom:22px}}

@@ -1,0 +1,14 @@
+/* Underlined titles size themselves to their text, including inside grids. */
+.text-underlined.text-underlined {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  justify-self: start;
+  border-bottom: 4px solid #00c7b2;
+  padding-bottom: 7px;
+}
+.text-underlined.underline-title-rule { border-bottom-width: 1px; padding-bottom: 21px; }
+.text-underlined.underline-title-underline { position: relative; border-bottom: 0; padding-bottom: 12px; }
+.text-underlined.underline-title-underline::after { content: ""; position: absolute; left: 0; bottom: 0; width: 130px; max-width: 100%; height: 4px; border-radius: 2px; background: #00c7b2; }
+.text-underlined.underline-section-rule { padding-bottom: 5px; }
+.text-underlined.underline-catalog-accent { padding-bottom: 10px; }

@@ -1,0 +1,65 @@
+/* Swiper viewports clip slides while navigation stays outside the content. */
+.site-carousel.swiper {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  padding: 0;
+}
+.site-carousel > .swiper-wrapper { gap: 0; align-items: stretch; }
+.site-carousel .swiper-slide { height: auto; scroll-snap-align: none; }
+.products.content { width: min(1296px, calc(100% - 160px)); }
+.slider-shell { display: block; position: relative; }
+.slider-shell > .arrow-button {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.slider-shell > .arrow-button:first-child { left: -64px; }
+.slider-shell > .arrow-button:last-child { right: -64px; }
+.hero-slides.site-carousel { position: absolute; inset: 0; height: 100%; }
+.hero-slides .swiper-wrapper, .hero-slides .hero-slide { height: 100%; }
+.pharma-track .pharma-card { display: grid; height: 240px; }
+.pharma-section > .pharma-pagination {
+  position: static;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  justify-content: center;
+  height: auto;
+  min-height: 54px;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.pharma-pagination .swiper-pagination-bullet {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255,0,0,.22);
+  border-radius: 50%;
+  background: white;
+  color: red;
+  opacity: 1;
+  font: inherit;
+}
+.pharma-pagination .swiper-pagination-bullet-active { background: red; color: white; }
+.product-slider.site-carousel { padding-bottom: 46px; }
+@media (max-width: 760px) {
+  .products.content { width: calc(100% - 48px); }
+}
+
+.pharma-pagination .pharma-page-numbers { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: auto; min-width: 0; }
+.pharma-pagination > button { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 28px; width: 28px; height: 32px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: red; cursor: pointer; }
+.pharma-pagination > button:hover { background: #fff0f0; }
+.pharma-pagination > button:focus-visible { outline: 2px solid red; outline-offset: 2px; }
+
+.pharma-pagination .swiper-pagination-bullet { transition: background-color .2s ease, color .2s ease; }
+.pharma-pagination .swiper-pagination-bullet:hover,
+.pharma-pagination .swiper-pagination-bullet:focus-visible { background: red; color: #fff; border-color: red; }
+.pharma-pagination .swiper-pagination-bullet-active:hover { background: red; border-color: red; }
+.pharma-pagination .swiper-pagination-bullet:focus-visible { outline: 2px solid #c00; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .pharma-pagination .swiper-pagination-bullet { transition: none; } }
