@@ -219,6 +219,7 @@ if (typeof Swiper !== "undefined") {
       on: { slideChange: updateDots },
     })
     dots.forEach((dot) => dot.addEventListener("click", () => swiper.slideToLoop(Number(dot.dataset.slide))))
+    if (!autoplayButton) return
     function updateAutoplayButton() {
       const paused = !swiper.autoplay.running
       autoplayButton.setAttribute("aria-pressed", String(paused))
@@ -246,3 +247,69 @@ if (typeof Swiper !== "undefined") {
     })
   })
 }
+
+// Two documents: the selected one is centered, the other fills both side slots.
+document.querySelectorAll(".certificate-card").forEach((card) => {
+  const sheets = [...card.querySelectorAll(".certificate-images > button")]
+  const center = sheets.find((sheet) => sheet.classList.contains("certificate-middle"))
+  const side = sheets.find((sheet) => sheet.classList.contains("certificate-front"))
+  const openLink = card.querySelector(".certificate-open")
+  if (!center || !side || !openLink) return
+  const documents = [center, side].map((sheet) => ({
+    title: sheet.dataset.title,
+    name: sheet.dataset.name,
+    src: sheet.querySelector("img").getAttribute("src"),
+    alt: sheet.querySelector("img").alt,
+  }))
+  let selected = 0
+  function openDocument(event) {
+    event.preventDefault()
+    const document = documents[selected]
+    if (typeof Fancybox !== "undefined") {
+      Fancybox.show([{ src: document.src, type: "image", caption: document.alt }], { Hash: false })
+    } else window.location.assign(document.src)
+  }
+  function render() {
+    sheets.forEach((sheet) => {
+      const isCenter = sheet === center
+      const document = documents[isCenter ? selected : 1 - selected]
+      const image = sheet.querySelector("img")
+      image.src = document.src
+      image.alt = document.alt
+      sheet.dataset.title = document.title
+      sheet.dataset.name = document.name
+      sheet.setAttribute("aria-pressed", String(isCenter))
+      sheet.setAttribute("aria-label", `${document.title} — ${isCenter ? "böyüt" : "seç"}`)
+    })
+    const document = documents[selected]
+    card.querySelector(".certificate-copy > strong").textContent = document.title
+    card.querySelector(".certificate-copy h3").textContent = document.name
+    card.querySelector(".gmp").hidden = document.title !== "GMP"
+    openLink.href = document.src
+  }
+  sheets.forEach((sheet) => sheet.addEventListener("click", (event) => {
+    if (sheet === center) openDocument(event)
+    else {
+      sheets.forEach((item) => item.getAnimations().forEach((animation) => animation.cancel()))
+      const fromCenter = center.getBoundingClientRect()
+      const fromSide = sheet.getBoundingClientRect()
+      selected = 1 - selected
+      render()
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+      sheets.forEach((item) => {
+        const origin = item === center ? fromSide : fromCenter
+        const target = item.getBoundingClientRect()
+        const transform = getComputedStyle(item).transform
+        const resting = transform === "none" ? "" : transform
+        const dx = origin.left + origin.width / 2 - target.left - target.width / 2
+        const dy = origin.top + origin.height / 2 - target.top - target.height / 2
+        item.animate([
+          { transform: `translate(${dx}px, ${dy}px) scale(${origin.width / target.width}, ${origin.height / target.height}) ${resting}`, opacity: .65 },
+          { transform: resting || "none", opacity: 1 },
+        ], { duration: 450, easing: "cubic-bezier(.22, 1, .36, 1)" })
+      })
+    }
+  }))
+  openLink.addEventListener("click", openDocument)
+  render()
+})

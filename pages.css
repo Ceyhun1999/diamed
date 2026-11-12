@@ -75,7 +75,6 @@ h1, h2, h3, p { margin: 0; }
 .hero-image::after { content: ""; position: absolute; inset: 0; background: rgba(0,199,178,.08); pointer-events: none; }
 .hero-image > img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
 .hero-metric { position: absolute; z-index: 1; left: 28px; bottom: 32px; width: 220px; padding: 18px 20px 22px; display: grid; gap: 16px; border-radius: 20px; background: #f7fbfa; box-shadow: 0 10px 30px rgba(0,0,0,.1); }
-.hero-metric::after { content: ""; position: absolute; left: 20px; bottom: 0; width: 52px; height: 4px; background: #00c7b2; }
 .hero-metric strong { font: 700 30px "Poppins:Bold"; }
 .hero-metric span { color: #00c7b2; font: 13px "Poppins:Medium"; }
 
@@ -123,7 +122,11 @@ h1, h2, h3, p { margin: 0; }
 .certificate-copy a { margin-top: 8px; color: #00c7b2; font: 600 13px/1.5 "Poppins:SemiBold"; }
 .certificate-copy .gmp { position: absolute; top: 94px; left: 126px; width: 88px; height: 88px; object-fit: contain; }
 .certificate-images { position: relative; width: 380px; height: 224px; min-height: 224px; justify-self: end; }
-.certificate-images img { position: absolute; object-fit: contain; }
+.certificate-images > button { position: absolute; padding: 0; border: 0; background: transparent; cursor: pointer; transition: left .3s ease, top .3s ease, width .3s ease, height .3s ease, transform .3s ease; }
+.certificate-images > button img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.certificate-images > button:focus-visible { outline: 2px solid #00c7b2; outline-offset: 4px; }
+.certificate-copy .gmp[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .certificate-images > button { transition: none; } }
 .certificate-back { z-index: 1; width: 182px; height: 141px; left: 12px; top: 80px; transform: rotate(-14deg); }
 .certificate-middle { z-index: 3; width: 157px; height: 224px; left: 112px; top: 0; }
 .certificate-front { z-index: 2; width: 144px; height: 205px; left: 210px; top: 24px; transform: rotate(14deg); }
@@ -384,8 +387,12 @@ h1, h2, h3, p { margin: 0; }
 .news-page .section-heading h2 { margin: 0; font: 700 30px/1.2 "Poppins:Bold"; }
 .news-page .section-heading a { color: #00c7b2; font: 600 14px "Poppins:SemiBold"; }
 .news-page .news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 23px 21px; margin-top: 0; }
-.news-page .news-card { display: flex; height: 500px; flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px 18px 20px; border: 1px solid #dcebe9; border-radius: 22px; background: #fff; box-shadow: 0 5px 16px rgba(5,31,31,.05); }
-.news-page .news-card h3 { width: 100%; margin: 0; color: #050f12; font: 700 20px/1.35 "Poppins:Bold"; }
+.news-page .news-card { position: relative; display: flex; height: auto; min-height: 0; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 14px 16px; border: 1px solid #dcebe9; border-radius: 22px; background: #fff; box-shadow: 0 5px 16px rgba(5,31,31,.05); }
+.news-page .news-card h3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; width: 100%; margin: 0; color: #050f12; font: 700 18px/1.35 "Poppins:Bold"; }
+.news-page .news-card .card-image { display: block; height: 180px; min-height: 0; flex: 0 0 180px; padding: 0; }
+.news-page .news-card .card-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.news-page .news-card .read-more { margin-top: auto; }
+.news-page .news-card:focus-within { outline: 2px solid #00c7b2; outline-offset: 3px; }
 .card-image { position: relative; width: 100%; height: 220px; flex: 0 0 220px; overflow: hidden; border-radius: 16px; }
 .card-image > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .card-description { width: 100%; margin: 0; color: #00c7b2; font-size: 14px; line-height: 1.45; }
@@ -449,7 +456,7 @@ h1, h2, h3, p { margin: 0; }
   .news-page .section-heading { align-items: flex-end; gap: 14px; padding: 24px 0 15px; }
   .news-page .section-heading h2 { font-size: 22px; }
   .news-page .section-heading a { text-align: right; font-size: 11px; }
-  .news-page .news-card { height: auto; min-height: 500px; }
+  .news-page .news-card { height: auto; min-height: 0; }
   .news-pager { width: fit-content; max-width: 100%; }
   .partner-orbit { opacity: .4; }
   .partners-heading { align-items: flex-start; gap: 24px; flex-direction: column; }
@@ -591,3 +598,13 @@ h1, h2, h3, p { margin: 0; }
 .category-card .cytobrush-category-art { grid-column: 2; grid-row: 1 / 4; display: grid; place-items: center; min-width: 0; }
 .cytobrush-category-art .cytobrush-variant-art { position: relative; width: 36.56px; height: 140px; overflow: hidden; }
 .category-card .cytobrush-variant-art > img { position: absolute; display: block; top: -17.22%; left: -214.89%; width: 525.53%; height: 137.22%; max-width: none; object-fit: fill; }
+
+/* Fill category artwork space without the source images' transparent margins. */
+.catalog-page .category-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 8px; }
+.category-product-art { grid-column: 2; grid-row: 1 / 4; display: grid; place-items: center; min-width: 0; height: 185px; align-self: center; }
+.category-product-crop { position: relative; width: min(100%, var(--art-width)); aspect-ratio: var(--art-ratio); overflow: hidden; }
+.category-card .category-product-crop > img { position: absolute; min-width: 0; max-width: none; object-fit: fill; }
+.cytobrush-category-art .cytobrush-variant-art { height: 185px; width: 48.31px; }
+
+.news-page a.news-card { color: inherit; text-decoration: none; cursor: pointer; }
+.news-page a.news-card:focus-visible { outline: 2px solid #00c7b2; outline-offset: 3px; }
