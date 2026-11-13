@@ -1,6 +1,77 @@
 const menuButton = document.querySelector(".menu-button")
 const canvasMenu = document.querySelector(".canvas-menu")
 
+const navDropdowns = [...document.querySelectorAll(".navigation .nav-dropdown")]
+navDropdowns.forEach((dropdown) => {
+  dropdown.addEventListener("pointerenter", (event) => {
+    if (event.pointerType !== "mouse") return
+    navDropdowns.forEach((item) => { item.open = item === dropdown })
+  })
+  dropdown.addEventListener("pointerleave", () => {
+    if (!dropdown.contains(document.activeElement)) dropdown.open = false
+  })
+  dropdown.addEventListener("toggle", () => {
+    if (dropdown.open) navDropdowns.forEach((item) => { if (item !== dropdown) item.open = false })
+  })
+  dropdown.addEventListener("focusout", (event) => {
+    if (!dropdown.contains(event.relatedTarget)) dropdown.open = false
+  })
+  dropdown.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => { dropdown.open = false }))
+})
+document.addEventListener("click", (event) => {
+  navDropdowns.forEach((dropdown) => { if (!dropdown.contains(event.target)) dropdown.open = false })
+})
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return
+  navDropdowns.forEach((dropdown) => {
+    if (!dropdown.open) return
+    if (dropdown.contains(document.activeElement)) dropdown.querySelector("summary").focus()
+    dropdown.open = false
+  })
+})
+
+// Reveal the product history in order when it scrolls into view.
+document.querySelectorAll(".timeline").forEach((timeline) => {
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
+  if (motion.matches || !("IntersectionObserver" in window) || !Element.prototype.animate) return
+
+  const cards = [...timeline.querySelectorAll(".milestone")]
+  const compact = window.matchMedia("(max-width: 520px)").matches
+  const animations = cards.map((card, index) => {
+    const direction = index % 2 === 0 ? -40 : 40
+    const animation = card.animate([
+      { opacity: 0, transform: `translateY(${direction}px)` },
+      { opacity: 1, transform: "translateY(0)" },
+    ], {
+      duration: 700,
+      delay: compact ? 0 : index * 280,
+      easing: "cubic-bezier(.22, 1, .36, 1)",
+      fill: "both",
+    })
+    animation.pause()
+    animation.finished.then(() => animation.cancel()).catch(() => {})
+    return animation
+  })
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return
+      if (compact) animations[cards.indexOf(entry.target)].play()
+      else animations.forEach((animation) => animation.play())
+      observer.unobserve(entry.target)
+    })
+  }, { threshold: 0.15 })
+
+  if (compact) cards.forEach((card) => observer.observe(card))
+  else observer.observe(timeline)
+
+  motion.addEventListener("change", () => {
+    if (!motion.matches) return
+    observer.disconnect()
+    animations.forEach((animation) => animation.cancel())
+  })
+})
+
 if (menuButton && canvasMenu) {
   const closeButton = canvasMenu.querySelector(".canvas-menu__close")
   const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches
@@ -313,3 +384,199 @@ document.querySelectorAll(".certificate-card").forEach((card) => {
   openLink.addEventListener("click", openDocument)
   render()
 })
+
+
+const searchableProducts = [
+  {
+    "name": "Şprislər",
+    "href": "./syringes.html"
+  },
+  {
+    "name": "Kosmetoloji iynə",
+    "href": "./cosmetic-needle.html"
+  },
+  {
+    "name": "Vazofix",
+    "href": "./vazofix.html"
+  },
+  {
+    "name": "Kəpənək",
+    "href": "./butterfly.html"
+  },
+  {
+    "name": "Steril cərrahi əlcəklər",
+    "href": "./surgical-gloves.html"
+  },
+  {
+    "name": "İynə ucluğu (steril)",
+    "href": "./sterile-needle.html"
+  },
+  {
+    "name": "Sidik torbası",
+    "href": "./urine-bag.html"
+  },
+  {
+    "name": "Steril stəkan",
+    "href": "./sterile-cup.html"
+  },
+  {
+    "name": "Vakuumlu qan alma tüpləri",
+    "href": "./vacuum-tubes.html"
+  },
+  {
+    "name": "İnfuziya dəsti",
+    "href": "./infusion-set.html"
+  },
+  {
+    "name": "Cytobrush",
+    "href": "./cytobrush.html"
+  },
+  {
+    "name": "Lateks əlcəklər",
+    "href": "./latex-gloves.html"
+  },
+  {
+    "name": "İnsulin 1 ml",
+    "href": "./insulin-syringe.html"
+  },
+  {
+    "name": "Jane şprisi",
+    "href": "./jane-syringe.html"
+  },
+  {
+    "name": "Vaksin üçün özünüməhv edən şpris 0,5 ml",
+    "href": "./vaccine-syringe.html"
+  },
+  {
+    "name": "Vakuumlu tüp növləri",
+    "href": "./vacuum-tube-details.html"
+  },
+  {
+    "name": "Özünüməhv edən şpris 0,05 ml",
+    "href": "./syringe-005ml.html"
+  },
+  {
+    "name": "10 ml şpris",
+    "href": "./syringe-10ml.html"
+  },
+  {
+    "name": "1 ml şpris",
+    "href": "./syringe-1ml.html"
+  },
+  {
+    "name": "20 ml şpris",
+    "href": "./syringe-20ml.html"
+  },
+  {
+    "name": "2 ml şpris",
+    "href": "./syringe-2ml.html"
+  },
+  {
+    "name": "50 ml şpris",
+    "href": "./syringe-50ml.html"
+  },
+  {
+    "name": "5 ml şpris",
+    "href": "./syringe-5ml.html"
+  }
+]
+
+function normalizeProductQuery(value) {
+  return value.toLocaleLowerCase("az").replace(/ı/g, "i").replace(/ə/g, "e")
+    .replace(/ş/g, "s").replace(/ç/g, "c").replace(/ğ/g, "g")
+    .replace(/ö/g, "o").replace(/ü/g, "u").replace(/,/g, ".")
+    .replace(/(\d)\s+(ml|mm|g)\b/g, "$1$2").trim()
+}
+
+if (document.querySelector(".header .search")) {
+  const searchDialog = document.createElement("dialog")
+  searchDialog.className = "product-search"
+  searchDialog.setAttribute("aria-labelledby", "product-search-title")
+  searchDialog.innerHTML = `
+    <button class="product-search-close" type="button" aria-label="Axtarışı bağla">×</button>
+    <h2 id="product-search-title">Məhsul axtarışı</h2>
+    <form class="product-search-form" role="search">
+      <input type="search" aria-label="Məhsulun adı və ya həcmi" placeholder="Məhsulun adını və ya həcmini yazın" autocomplete="off">
+      <button type="submit">Axtar</button>
+    </form>
+    <p class="product-search-status" role="status">Məhsulun adını və ya həcmini daxil edin.</p>
+    <div class="product-search-results"></div>`
+  document.body.append(searchDialog)
+  const input = searchDialog.querySelector("input")
+  const status = searchDialog.querySelector(".product-search-status")
+  const results = searchDialog.querySelector(".product-search-results")
+  function searchProducts() {
+    const query = normalizeProductQuery(input.value)
+    results.replaceChildren()
+    if (!query) {
+      status.textContent = "Məhsulun adını və ya həcmini daxil edin."
+      return
+    }
+    const words = query.split(/\s+/)
+    const matches = searchableProducts.filter((product) => {
+      const name = normalizeProductQuery(product.name)
+      return words.every((word) => name.includes(word))
+    })
+    status.textContent = matches.length ? `${matches.length} məhsul tapıldı.` : "Uyğun məhsul tapılmadı. Başqa ad və ya həcm yazın."
+    matches.forEach((product) => {
+      const link = document.createElement("a")
+      link.href = product.href
+      link.textContent = product.name
+      results.append(link)
+    })
+  }
+  document.querySelectorAll(".header .search").forEach((button) => {
+    button.setAttribute("aria-haspopup", "dialog")
+    button.addEventListener("click", () => {
+      navDropdowns.forEach((dropdown) => { dropdown.open = false })
+      if (!searchDialog.open) searchDialog.showModal()
+      document.body.classList.add("product-search-open")
+      input.focus()
+    })
+  })
+  searchDialog.querySelector(".product-search-close").addEventListener("click", () => searchDialog.close())
+  searchDialog.addEventListener("click", (event) => {
+    const bounds = searchDialog.getBoundingClientRect()
+    if (event.target === searchDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) searchDialog.close()
+  })
+  searchDialog.addEventListener("close", () => document.body.classList.remove("product-search-open"))
+  searchDialog.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault()
+    searchProducts()
+  })
+  input.addEventListener("input", searchProducts)
+}
+
+const photoGrid = document.querySelector(".photo-grid")
+const galleryPagination = document.querySelector(".gallery-pagination")
+if (photoGrid && galleryPagination) {
+  const photos = [...photoGrid.querySelectorAll(".photo-card")]
+  const pageSize = 6
+  const totalPages = Math.ceil(photos.length / pageSize)
+  let currentPage = 1
+  function renderGalleryPage(page, scroll = false) {
+    currentPage = Math.min(totalPages, Math.max(1, page))
+    photos.forEach((photo, index) => {
+      photo.hidden = index < (currentPage - 1) * pageSize || index >= currentPage * pageSize
+    })
+    galleryPagination.replaceChildren()
+    function addButton(label, page, disabled, active = false) {
+      const button = document.createElement("button")
+      button.type = "button"
+      button.textContent = label
+      button.disabled = disabled
+      if (active) button.setAttribute("aria-current", "page")
+      button.setAttribute("aria-label", label === "←" ? "Əvvəlki səhifə" : label === "→" ? "Növbəti səhifə" : `Səhifə ${page}`)
+      button.addEventListener("click", () => {
+        renderGalleryPage(page, true)
+        galleryPagination.querySelector('[aria-current="page"]').focus({ preventScroll: true })
+      })
+      galleryPagination.append(button)
+    }
+    addButton("←", currentPage - 1, currentPage === 1)
+    for (let page = 1; page <= totalPages; page++) addButton(String(page), page, false, currentPage === page)
+    addButton("→", currentPage + 1, currentPage === totalPages)
+    if (scroll) document.querySelector("#foto-qalereya").scrollIntoView({ block: "start" })
+  }
+  renderGalleryPage(1)
+}

@@ -58,7 +58,7 @@ a { color: inherit; text-decoration: none; }
 .goal-list article { min-height: 106px; padding: 0 24px; border-left: 1px solid #dcebe9; }
 .goal-list article.first { border-left: 0; }
 .goal-list b { color: #00c7b2; font: 20px "Poppins:Bold"; }
-.goal-list .first b { color: red; }
+.goal-list article:hover b { color: red; }
 .goal-list p { margin: 13px 0 0; font: 15px/1.45 "Poppins:Medium"; }
 .history .section-heading span { width: 138px; }
 .timeline { --axis-y: 173px; height: 364px; position: relative; margin-top: 23px; padding: 27px 20px; border: 1px solid #dcebe9; border-radius: 28px; box-shadow: 0 8px 22px rgba(10,31,41,.07); }
