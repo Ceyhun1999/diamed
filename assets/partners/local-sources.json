@@ -1,0 +1,55 @@
+{
+  "source": "https://diamedpharma.az/",
+  "partners": [
+    {
+      "name": "Azərbaycan Respublikasının Səhiyyə Nazirliyi",
+      "source": "https://diamedpharma.az/public/optimized/dd2c11b39300ed36-447.webp",
+      "path": "assets/partners/local-sehiyye-nazirliyi.webp"
+    },
+    {
+      "name": "TƏBİB – Tibbi Ərazi Bölmələrini İdarəetmə Birliyi",
+      "source": "https://diamedpharma.az/public/optimized/6e839d503f1261d3-1600.webp",
+      "path": "assets/partners/local-tebib.webp"
+    },
+    {
+      "name": "Azərbaycan Respublikasının Müdafiə Nazirliyi",
+      "source": "https://diamedpharma.az/public/optimized/a7676318870990fc-159.webp",
+      "path": "assets/partners/local-mudafie-nazirliyi.webp"
+    },
+    {
+      "name": "Avromed Company",
+      "source": "https://diamedpharma.az/public/optimized/0c7aa9e50b4df8fc-396.webp",
+      "path": "assets/partners/local-avromed.webp"
+    },
+    {
+      "name": "Zeytun Pharmaceuticals",
+      "source": "https://diamedpharma.az/public/optimized/01e973ebf3e4d6aa-447.webp",
+      "path": "assets/partners/local-zeytun.webp"
+    },
+    {
+      "name": "Diamed Hospital",
+      "source": "https://diamedpharma.az/public/optimized/f36ffe2a7b9e0317-1600.webp",
+      "path": "assets/partners/local-diamed-hospital.webp"
+    },
+    {
+      "name": "Bona Dea International Hospital",
+      "source": "https://diamedpharma.az/public/optimized/126fcc8c3d1bfed9-368.webp",
+      "path": "assets/partners/local-bona-dea.webp"
+    },
+    {
+      "name": "Medical Plaza",
+      "source": "https://diamedpharma.az/public/optimized/7e81f6e53d4bb919-200.webp",
+      "path": "assets/partners/local-medical-plaza.webp"
+    },
+    {
+      "name": "Mərkəzi Klinika",
+      "source": "https://diamedpharma.az/uploads/posts/2026-11/merkeziavif.avif",
+      "path": "assets/partners/local-merkezi-klinika.avif"
+    },
+    {
+      "name": "EPİD Biomed",
+      "source": "https://diamedpharma.az/public/optimized/d46053142ad54756-200.webp",
+      "path": "assets/partners/local-epid-biomed.webp"
+    }
+  ]
+}
