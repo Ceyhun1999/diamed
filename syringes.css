@@ -1,5 +1,11 @@
 .syringes-page .product-content{max-width:864px}
 .syringes-page .syringes-hero{height:370px;padding:0;position:relative}
+.syringes-page .hero-image.normalized-syringe-hero {
+  box-sizing: border-box;
+  padding: clamp(24px, 3vw, 36px);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
 .syringes-hero-art{position:relative;width:864px;height:370px;flex-shrink:0}
 .hero-syringe{position:absolute;overflow:hidden}
 .syringes-page .hero-syringe img{position:absolute;max-width:none;min-height:0;object-fit:fill;height:100%;top:0}

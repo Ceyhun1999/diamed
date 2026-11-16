@@ -10,6 +10,43 @@
 }
 .site-carousel > .swiper-wrapper { gap: 0; align-items: stretch; }
 .site-carousel .swiper-slide { height: auto; scroll-snap-align: none; }
+/* Fit the visible artwork, rather than its transparent source canvas. */
+.product-fit-art { overflow: hidden; margin: auto; justify-self: center; align-self: center; }
+.variant-image.normalized-variant {
+  box-sizing: border-box;
+  padding: 18px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+.normalized-variant > .product-fit-art { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
+.variant-gallery .normalized-product-slide {
+  box-sizing: border-box;
+  padding: 16px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+.normalized-product-slide > .product-fit-art { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
+.product-image.product-image-normalized {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+.product-image-normalized > .product-fit-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+.syringes-page .syringe-card .variant-image { padding: 14px; }
+.syringes-page .syringe-card .product-fit-art {
+  display: block;
+  width: 100%;
+  height: 160px;
+  max-height: 100%;
+}
+.syringes-page .normalized-syringe-hero { padding: 24px; }
+.normalized-syringe-hero > .product-fit-art { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
 .products.content { width: min(1296px, calc(100% - 160px)); }
 .slider-shell { display: block; position: relative; }
 .slider-shell > .arrow-button {
@@ -17,9 +54,29 @@
   z-index: 2;
   top: 50%;
   transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-width: 1px;
+  color: #00a996;
+  cursor: pointer;
 }
-.slider-shell > .arrow-button:first-child { left: -64px; }
-.slider-shell > .arrow-button:last-child { right: -64px; }
+/* Product and news navigation use the same dimensions. */
+.slider-shell > .arrow-button,
+.news-carousel-shell > .news-arrow {
+  width: 34px;
+  height: 34px;
+}
+.slider-shell > .arrow-button svg,
+.news-carousel-shell > .news-arrow svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.slider-shell > .arrow-button:hover { color: #fff; }
+.slider-shell > .arrow-button:focus-visible { outline: 2px solid #008e80; outline-offset: 3px; }
+.slider-shell > .arrow-button:first-child { left: -50px; }
+.slider-shell > .arrow-button:last-child { right: -50px; }
 .hero-slides.site-carousel { position: absolute; inset: 0; height: 100%; }
 .hero-slides .swiper-wrapper, .hero-slides .hero-slide { height: 100%; }
 .pharma-track .pharma-card { display: grid; height: 240px; }
@@ -48,8 +105,71 @@
 }
 .pharma-pagination .swiper-pagination-bullet-active { background: red; color: white; }
 .product-slider.site-carousel { padding-bottom: 46px; }
+.other-products { padding-bottom: 56px; }
+.related-products-slider-shell { position: relative; min-width: 0; margin-inline: 40px; }
+.related-products-slider-shell > .product-slider.site-carousel { padding-bottom: 0; }
+.related-products-controls { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
+.related-products-controls button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid #00c7b2; border-radius: 50%; background: #fff; color: #00a996; cursor: pointer; transition: background-color .2s ease, color .2s ease; }
+.related-products-controls button { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: auto; }
+.related-products-controls button:first-child { left: -50px; }
+.related-products-controls button:last-child { right: -50px; }
+.related-products-controls svg { display: block; }
+.related-products-controls button:hover { background: #00c7b2; color: #fff; }
+.related-products-controls button:focus-visible { outline: 2px solid #008e80; outline-offset: 3px; }
+.related-products-controls button:disabled { opacity: .35; cursor: default; }
+@media (min-width: 1456px) {
+  .related-products-slider-shell { margin-inline: 0; }
+}
+@media (max-width: 599px) {
+  .other-products { padding-bottom: 36px; }
+  .related-products-slider-shell { margin-inline: 34px; }
+  .related-products-controls button:first-child { left: -40px; }
+  .related-products-controls button:last-child { right: -40px; }
+}
+.partners .partner-row { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.partners .partner-grid.site-carousel .partner-card { height: 150px; }
+@media (max-width: 520px) {
+  .partners .partner-grid.site-carousel .partner-card { height: 120px; }
+}
+.news.content { grid-template-columns: minmax(0, 1fr); }
+.news-carousel-shell { position: relative; min-width: 0; width: 100%; max-width: 100%; box-sizing: border-box; margin-top: 24px; }
+.news-carousel-shell .news-grid { margin-top: 0; }
+.news-carousel-shell .news-card { display: flex; flex-direction: column; box-sizing: border-box; }
+.news-carousel-shell .news-card > img { flex-shrink: 0; }
+.news-arrow { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); display: grid; place-items: center; padding: 0; border: 1px solid #00c7b2; border-radius: 50%; background: #fff; color: #00a996; cursor: pointer; transition: background-color .2s ease, color .2s ease; }
+.news-prev { left: -50px; }
+.news-next { right: -50px; }
+.news-carousel-pagination { position: static; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; }
+.news-carousel-pagination .swiper-pagination-bullet { display: grid; place-items: center; width: 38px; height: 38px; margin: 0 !important; padding: 0; opacity: 1; border: 1px solid #b5e8e1; border-radius: 50%; background: #fff; color: #008e80; font: inherit; cursor: pointer; }
+.news-carousel-pagination .swiper-pagination-bullet-active,
+.news-carousel-pagination .swiper-pagination-bullet:hover,
+.news-arrow:hover:not(:disabled) { background: #00c7b2; border-color: #00c7b2; color: #fff; }
+.news-arrow:disabled { opacity: .35; cursor: default; }
+.news-arrow:focus-visible, .news-carousel-pagination button:focus-visible { outline: 2px solid #008e80; outline-offset: 3px; }
+.news-heading { gap: 24px; margin-bottom: 0; }
+.news-heading > div { min-width: 0; }
+.news-heading h2 { font: 700 40px "Poppins:Bold"; }
+.news-heading .eyebrow.line { width: fit-content; }
+.news-heading .eyebrow.line::after { width: 100%; }
+.news-heading p.section-description.accent { color: #00c7b2; font-size: 16px; }
+.news-all-link { width: fit-content; flex-shrink: 0; white-space: nowrap; border-radius: 999px; }
+@media (max-width: 760px) {
+  .news-heading h2 { font-size: 34px; }
+}
+.news-arrow[hidden], .news-carousel-pagination[hidden] { display: none; }
+@media (min-width: 900px) {
+  .news.content { width: min(1296px, calc(100% - 160px)); }
+}
+@media (max-width: 899px) {
+  .news-carousel-shell { padding-bottom: 64px; }
+  .news-arrow { top: auto; bottom: 0; transform: none; }
+  .news-prev { left: calc(50% - 48px); }
+  .news-next { right: calc(50% - 48px); }
+  .news-carousel-pagination { margin-top: 16px; }
+}
 @media (max-width: 760px) {
   .products.content { width: calc(100% - 48px); }
+  .slider-shell > .arrow-button { display: none; }
 }
 
 .pharma-pagination .pharma-page-numbers { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: auto; min-width: 0; }

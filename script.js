@@ -32,6 +32,7 @@ document.addEventListener("keydown", (event) => {
 
 // Reveal the product history in order when it scrolls into view.
 document.querySelectorAll(".timeline").forEach((timeline) => {
+  if (timeline.closest(".about-page")) return
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
   if (motion.matches || !("IntersectionObserver" in window) || !Element.prototype.animate) return
 
@@ -202,9 +203,80 @@ if (typeof Swiper !== "undefined") {
     if (reducedMotion.matches) swiper.autoplay.stop()
     viewport.addEventListener("focusin", () => swiper.autoplay.stop())
     viewport.addEventListener("focusout", (event) => {
-      if (!viewport.contains(event.relatedTarget) && !swiper.userPaused && !reducedMotion.matches) swiper.autoplay.start()
+      if (!viewport.contains(event.relatedTarget) && !swiper.userPaused && !reducedMotion.matches && swiper.params.autoplay.enabled) swiper.autoplay.start()
     })
     return swiper
+  }
+
+  document.querySelectorAll(".news-carousel-shell").forEach((shell) => {
+    const viewport = shell.querySelector(".news-grid")
+    const pagination = shell.parentElement.querySelector(".news-carousel-pagination")
+    const slides = [...viewport.children]
+    const wrapper = document.createElement("div")
+    wrapper.className = "swiper-wrapper"
+    slides.forEach((slide) => {
+      slide.classList.add("swiper-slide")
+      wrapper.append(slide)
+    })
+    viewport.classList.add("swiper", "site-carousel")
+    viewport.append(wrapper)
+    shell.querySelectorAll(".news-arrow").forEach((button) => { button.hidden = false })
+    pagination.hidden = false
+    new Swiper(viewport, {
+      speed: reducedMotion.matches ? 0 : 450,
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      spaceBetween: 18,
+      breakpoints: {
+        600: { slidesPerView: 2, slidesPerGroup: 2 },
+        900: { slidesPerView: 3, slidesPerGroup: 3 },
+      },
+      navigation: { prevEl: shell.querySelector(".news-prev"), nextEl: shell.querySelector(".news-next") },
+      pagination: {
+        el: pagination,
+        clickable: true,
+        renderBullet(index, className) {
+          return `<button type="button" class="${className}" aria-label="${index + 1}-ci xəbər qrupu">${index + 1}</button>`
+        },
+      },
+      keyboard: { enabled: true, onlyInViewport: true },
+      a11y: { prevSlideMessage: "Əvvəlki xəbərlər", nextSlideMessage: "Növbəti xəbərlər", paginationBulletMessage: "{{index}}-ci xəbər qrupu" },
+    })
+  })
+
+  const partnerCarousels = []
+  document.querySelectorAll(".partners .partner-row").forEach((row) => {
+    const viewport = row.querySelector(".partner-grid")
+    // A second set lets the six-card desktop row keep sliding in a loop.
+    ;[...viewport.children].forEach((card) => viewport.append(card.cloneNode(true)))
+    viewport.setAttribute("role", "region")
+    viewport.setAttribute("aria-label", row.querySelector("h3").textContent)
+    partnerCarousels.push(createCarousel(viewport, {
+      autoplay: false,
+      slidesPerView: 2,
+      spaceBetween: 10,
+      breakpoints: {
+        521: { slidesPerView: 2, spaceBetween: 18 },
+        761: { slidesPerView: 3, spaceBetween: 18 },
+        1181: { slidesPerView: 6, spaceBetween: 18 },
+      },
+    }))
+  })
+
+  // Both partner rows advance on one clock and pause together.
+  if (partnerCarousels.length) {
+    const partners = document.querySelector(".partners")
+    let dragging = false
+    partnerCarousels.forEach((swiper) => {
+      swiper.on("touchStart", () => { dragging = true })
+      swiper.on("touchEnd", () => { dragging = false })
+    })
+    window.setInterval(() => {
+      if (reducedMotion.matches || document.hidden || dragging ||
+          partners.matches(":hover") || partners.contains(document.activeElement) ||
+          partnerCarousels.some((swiper) => swiper.animating)) return
+      partnerCarousels.forEach((swiper) => swiper.slideNext())
+    }, 3500)
   }
 
   document.querySelectorAll(".slider-shell").forEach((shell) => {
@@ -270,7 +342,20 @@ if (typeof Swiper !== "undefined") {
     })
   })
 
-  document.querySelectorAll(".product-slider").forEach((slider) => createCarousel(slider))
+  document.querySelectorAll(".product-slider").forEach((slider) => {
+    const shell = document.createElement("div")
+    shell.className = "related-products-slider-shell"
+    slider.before(shell)
+    shell.append(slider)
+    const controls = document.createElement("div")
+    controls.className = "related-products-controls"
+    controls.innerHTML = `<button type="button" aria-label="Əvvəlki məhsullar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><button type="button" aria-label="Növbəti məhsullar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>`
+    shell.append(controls)
+    const buttons = controls.querySelectorAll("button")
+    createCarousel(slider, {
+      navigation: { prevEl: buttons[0], nextEl: buttons[1] },
+    })
+  })
 
   document.querySelectorAll(".hero-slider").forEach((hero) => {
     const dots = [...hero.querySelectorAll("[data-slide]")]
@@ -314,7 +399,7 @@ if (typeof Swiper !== "undefined") {
     carousels.forEach((swiper) => {
       swiper.params.speed = reducedMotion.matches ? 0 : 550
       if (reducedMotion.matches || swiper.userPaused) swiper.autoplay.stop()
-      else swiper.autoplay.start()
+      else if (swiper.params.autoplay.enabled) swiper.autoplay.start()
     })
   })
 }

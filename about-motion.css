@@ -1,0 +1,14 @@
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .about-page :is(.stats-grid, .process-grid, .tech-grid, .values-grid) > article {
+    transition: translate .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .about-page :is(.stats-grid, .process-grid, .tech-grid, .values-grid) > article:hover {
+    translate: 0 -6px;
+    border-color: #00c7b2;
+    box-shadow: 0 16px 32px rgba(10, 75, 65, .12);
+  }
+  .about-page .goal-list > article {
+    transition: translate .3s ease;
+  }
+  .about-page .goal-list > article:hover { translate: 0 -4px; }
+}
