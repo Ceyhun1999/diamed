@@ -1,0 +1,80 @@
+{
+  "page": "https://diamedco.az/наши-партнеры/?lang=ru",
+  "partners": [
+    {
+      "name": "ARBURG",
+      "country": "Almaniya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/arburgru.png"
+    },
+    {
+      "name": "FOSTAG",
+      "country": "İsveçrə",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/fostagru.png"
+    },
+    {
+      "name": "MPS",
+      "country": "İsveçrə",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/mpsru.png"
+    },
+    {
+      "name": "INEOS",
+      "country": "İsveçrə",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/ineosru.png"
+    },
+    {
+      "name": "Nipro",
+      "country": "Yaponiya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/niproru.png"
+    },
+    {
+      "name": "Croda",
+      "country": "Birləşmiş Krallıq",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/crodaru.png"
+    },
+    {
+      "name": "Gabriel-Chemie",
+      "country": "Avstriya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/gabrielru.png"
+    },
+    {
+      "name": "PolyOne",
+      "country": "ABŞ",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/polyoneru.png"
+    },
+    {
+      "name": "Wipak",
+      "country": "Finlandiya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/wipakru.png"
+    },
+    {
+      "name": "SÜDPACK",
+      "country": "Almaniya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/suopackru.png"
+    },
+    {
+      "name": "Ray-Ran",
+      "country": "Birləşmiş Krallıq",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/rayranru.png"
+    },
+    {
+      "name": "Teknomar",
+      "country": "Türkiyə",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/teknomarru.png"
+    },
+    {
+      "name": "Enersol",
+      "country": "Avstraliya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/enersolru.png"
+    },
+    {
+      "name": "Testometric",
+      "country": "Birləşmiş Krallıq",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/testometricru.png"
+    },
+    {
+      "name": "Mitutoyo",
+      "country": "Yaponiya",
+      "source_image": "https://diamedco.az/wp-content/uploads/2019/02/mitutoyoru.png"
+    }
+  ]
+}

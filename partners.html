@@ -17,7 +17,13 @@
         <a class="brand" href="./index.html" aria-label="Diamed ana səhifə"><img src="./assets/beb6c.webp" alt="Diamed Co"></a>
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="canvas-menu" aria-label="Menyunu aç"><span class="hamburger"><i></i><i></i><i></i></span>MENYU <b><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></b></button>
         <nav class="navigation" aria-label="Əsas naviqasiya">
-          <a href="./about.html">Haqqımızda <img src="./assets/de39d.svg" alt=""></a>
+          <details class="nav-dropdown nav-about">
+            <summary><a href="./about.html">Haqqımızda</a></summary>
+            <div class="nav-dropdown-panel">
+              <a href="./about.html">Şirkət haqqında</a>
+              <a href="./partners.html">Tərəfdaşlar</a>
+            </div>
+          </details>
           <a href="./certificates.html">Sertifikatlar</a>
           <a href="./products.html">Məhsullar <img src="./assets/de39d.svg" alt=""></a>
           <a href="./gallery.html">Qalereya</a>
@@ -87,54 +93,66 @@
             <p>İstehsal texnologiyası, xammal, qablaşdırma və keyfiyyət nəzarəti üzrə qlobal əməkdaşlarımız.</p>
             <div class="partners-logo-grid">
                 <div class="partner-card global">
-                  <img class="partner-logo" src="./assets/partners/fab05-logo.webp" alt="Wipak">
-                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/fab05-flag.webp" alt=""><span>Finlandiya</span></div>
+                  <img class="partner-logo" src="./assets/partners/78515-logo.webp" alt="ARBURG" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/78515-flag.webp" alt=""><span>Almaniya</span></div>
                 </div>
                 <div class="partner-card global">
-                  <img class="partner-logo" src="./assets/partners/e5cc6-logo.webp" alt="Teknomar">
-                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/e5cc6-flag.webp" alt=""><span>Türkiyə</span></div>
+                  <img class="partner-logo" src="./assets/partners/36019-logo.webp" alt="FOSTAG" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/36019-flag.webp" alt=""><span>İsveçrə</span></div>
                 </div>
                 <div class="partner-card global">
-                  <img class="partner-logo" src="./assets/partners/72e14-logo.webp" alt="Ray-Ran">
+                  <img class="partner-logo" src="./assets/partners/11128-logo.webp" alt="MPS" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/11128-flag.webp" alt=""><span>İsveçrə</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/48c40-logo.webp" alt="INEOS" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/48c40-flag.webp" alt=""><span>İsveçrə</span></div>
+                </div>
+                <div class="partner-card global">
+                  <svg class="partner-logo" viewBox="1 0 778 249" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Nipro"><defs><clipPath id="partner-niproru-clip"><rect x="1" y="0" width="778" height="249"/></clipPath></defs><image href="./assets/partners/source-diamedco/niproru.png" width="784" height="398" clip-path="url(#partner-niproru-clip)"/></svg>
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/d85c4-flag.webp" alt=""><span>Yaponiya</span></div>
+                </div>
+                <div class="partner-card global">
+                  <svg class="partner-logo" viewBox="29 0 739 249" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Croda"><defs><clipPath id="partner-crodaru-clip"><rect x="29" y="0" width="739" height="249"/></clipPath></defs><image href="./assets/partners/source-diamedco/crodaru.png" width="772" height="396" clip-path="url(#partner-crodaru-clip)"/></svg>
                   <div class="partner-country"><img class="partner-flag" src="./assets/partners/72e14-flag.webp" alt=""><span>Birləşmiş Krallıq</span></div>
                 </div>
                 <div class="partner-card global">
-                  <img class="partner-logo" src="./assets/partners/09add-logo.webp" alt="Enersol">
+                  <svg class="partner-logo" viewBox="146 0 537 265" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Gabriel-Chemie"><defs><clipPath id="partner-gabrielru-clip"><rect x="146" y="0" width="537" height="265"/></clipPath></defs><image href="./assets/partners/source-diamedco/gabrielru.png" width="797" height="397" clip-path="url(#partner-gabrielru-clip)"/></svg>
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/austria-flag.svg" alt=""><span>Avstriya</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/1eaa1-logo.webp" alt="PolyOne" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/1eaa1-flag.webp" alt=""><span>ABŞ</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/fab05-logo.webp" alt="Wipak" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/fab05-flag.webp" alt=""><span>Finlandiya</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/27540-logo.webp" alt="SÜDPACK" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/27540-flag.webp" alt=""><span>Almaniya</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/72e14-logo.webp" alt="Ray-Ran" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/72e14-flag.webp" alt=""><span>Birləşmiş Krallıq</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/e5cc6-logo.webp" alt="Teknomar" loading="lazy">
+                  <div class="partner-country"><img class="partner-flag" src="./assets/partners/e5cc6-flag.webp" alt=""><span>Türkiyə</span></div>
+                </div>
+                <div class="partner-card global">
+                  <img class="partner-logo" src="./assets/partners/09add-logo.webp" alt="Enersol" loading="lazy">
                   <div class="partner-country"><img class="partner-flag" src="./assets/partners/09add-flag.webp" alt=""><span>Avstraliya</span></div>
                 </div>
                 <div class="partner-card global">
-                  <img class="partner-logo" src="./assets/partners/a4c86-logo.webp" alt="Testometric">
+                  <img class="partner-logo" src="./assets/partners/a4c86-logo.webp" alt="Testometric" loading="lazy">
                   <div class="partner-country"><img class="partner-flag" src="./assets/partners/a4c86-flag.webp" alt=""><span>Birləşmiş Krallıq</span></div>
                 </div>
                 <div class="partner-card global">
-                  <img class="partner-logo" src="./assets/partners/d85c4-logo.webp" alt="Mitutoyo">
+                  <img class="partner-logo" src="./assets/partners/d85c4-logo.webp" alt="Mitutoyo" loading="lazy">
                   <div class="partner-country"><img class="partner-flag" src="./assets/partners/d85c4-flag.webp" alt=""><span>Yaponiya</span></div>
                 </div>
-              <div class="partner-card global">
-                <img class="partner-logo" src="./assets/partners/78515-logo.webp" alt="ARBURG">
-                <div class="partner-country"><img class="partner-flag" src="./assets/partners/78515-flag.webp" alt=""><span>Almaniya</span></div>
               </div>
-              <div class="partner-card global">
-                <img class="partner-logo" src="./assets/partners/36019-logo.webp" alt="FOSTAG">
-                <div class="partner-country"><img class="partner-flag" src="./assets/partners/36019-flag.webp" alt=""><span>İsveçrə</span></div>
-              </div>
-              <div class="partner-card global">
-                <img class="partner-logo" src="./assets/partners/11128-logo.webp" alt="MPS">
-                <div class="partner-country"><img class="partner-flag" src="./assets/partners/11128-flag.webp" alt=""><span>İsveçrə</span></div>
-              </div>
-              <div class="partner-card global">
-                <img class="partner-logo" src="./assets/partners/48c40-logo.webp" alt="INEOS">
-                <div class="partner-country"><img class="partner-flag" src="./assets/partners/48c40-flag.webp" alt=""><span>İsveçrə</span></div>
-              </div>
-              <div class="partner-card global">
-                <img class="partner-logo" src="./assets/partners/27540-logo.webp" alt="SÜDPACK">
-                <div class="partner-country"><img class="partner-flag" src="./assets/partners/27540-flag.webp" alt=""><span>Almaniya</span></div>
-              </div>
-              <div class="partner-card global">
-                <img class="partner-logo" src="./assets/partners/1eaa1-logo.webp" alt="PolyOne">
-                <div class="partner-country"><img class="partner-flag" src="./assets/partners/1eaa1-flag.webp" alt=""><span>ABŞ</span></div>
-              </div>
-            </div>
           </div>
         </section>
       </main>

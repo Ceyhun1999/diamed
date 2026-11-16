@@ -248,7 +248,9 @@ if (typeof Swiper !== "undefined") {
   document.querySelectorAll(".partners .partner-row").forEach((row) => {
     const viewport = row.querySelector(".partner-grid")
     // A second set lets the six-card desktop row keep sliding in a loop.
-    ;[...viewport.children].forEach((card) => viewport.append(card.cloneNode(true)))
+    if (viewport.children.length <= 6) {
+      ;[...viewport.children].forEach((card) => viewport.append(card.cloneNode(true)))
+    }
     viewport.setAttribute("role", "region")
     viewport.setAttribute("aria-label", row.querySelector("h3").textContent)
     partnerCarousels.push(createCarousel(viewport, {
