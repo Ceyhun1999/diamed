@@ -390,6 +390,8 @@ main {
 }
 
 .hero-image {
+  width: 100%;
+  min-width: 0;
   position: relative;
   height: 370px;
   display: grid;

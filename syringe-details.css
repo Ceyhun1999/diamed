@@ -1,5 +1,5 @@
 /* Shared structure for the product-specific syringe pages. */
-.syringe-detail-page .product-content{max-width:864px;min-width:0}
+.syringe-detail-page .product-content{max-width:none;min-width:0}
 .detail-art{position:relative;display:block;overflow:hidden;width:100%;min-width:0}
 .detail-art-inner{position:absolute;left:0;top:0;transform-origin:top left}
 .detail-art p{margin:0}
@@ -28,7 +28,7 @@
 .syringe-sample .single-syringe-art{height:264px;background:#fff;border-radius:16px}
 .syringe-sample .single-syringe-art img{height:250px;width:250px}
 .syringe-sample>.detail-art{overflow:visible}
-@media(min-width:1101px){.syringe-detail-page .syringe-type-links{max-width:864px}.syringe-detail-page .syringe-type-links a:nth-child(6){margin-right:80px}}
+
 @media(max-width:600px){
   .syringe-detail-variants{grid-template-columns:minmax(0,276px);justify-content:center;gap:20px}
 }

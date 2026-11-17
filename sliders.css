@@ -47,7 +47,7 @@
 }
 .syringes-page .normalized-syringe-hero { padding: 24px; }
 .normalized-syringe-hero > .product-fit-art { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
-.products.content { width: min(1296px, calc(100% - 160px)); }
+.products.content { width: min(1296px, calc(100% - 48px)); }
 .slider-shell { display: block; position: relative; }
 .slider-shell > .arrow-button {
   position: absolute;
@@ -157,18 +157,23 @@
   .news-heading h2 { font-size: 34px; }
 }
 .news-arrow[hidden], .news-carousel-pagination[hidden] { display: none; }
-@media (min-width: 900px) {
-  .news.content { width: min(1296px, calc(100% - 160px)); }
+@media (min-width: 801px) {
+  .news.content { width: min(1296px, calc(100% - 48px)); }
 }
-@media (max-width: 899px) {
+@media (max-width: 1399px) {
+  .slider-shell { padding-bottom: 58px; }
+  .slider-shell > .arrow-button { top: auto; bottom: 0; transform: none; }
+  .slider-shell > .arrow-button:first-child { left: calc(50% - 48px); }
+  .slider-shell > .arrow-button:last-child { right: calc(50% - 48px); }
   .news-carousel-shell { padding-bottom: 64px; }
   .news-arrow { top: auto; bottom: 0; transform: none; }
   .news-prev { left: calc(50% - 48px); }
   .news-next { right: calc(50% - 48px); }
   .news-carousel-pagination { margin-top: 16px; }
 }
-@media (max-width: 760px) {
-  .products.content { width: calc(100% - 48px); }
+@media (max-width: 800px) {
+  .products.content { width: min(640px, calc(100% - 32px)); }
+  .slider-shell { padding-bottom: 0; }
   .slider-shell > .arrow-button { display: none; }
 }
 
