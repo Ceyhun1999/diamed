@@ -608,12 +608,26 @@ h1, h2, h3, p { margin: 0; }
 .cytobrush-category-art .cytobrush-variant-art { position: relative; width: 36.56px; height: 140px; overflow: hidden; }
 .category-card .cytobrush-variant-art > img { position: absolute; display: block; top: -17.22%; left: -214.89%; width: 525.53%; height: 137.22%; max-width: none; object-fit: fill; }
 
-/* Fill category artwork space without the source images' transparent margins. */
+/* Align visible product edges to one baseline in every category card. */
 .catalog-page .category-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 8px; }
-.category-product-art { grid-column: 2; grid-row: 1 / 4; display: grid; place-items: center; min-width: 0; height: 185px; align-self: center; }
+.category-product-art { grid-column: 2; grid-row: 1 / 4; display: grid; place-items: end center; min-width: 0; height: 185px; align-self: end; }
 .category-product-crop { position: relative; width: min(100%, var(--art-width)); aspect-ratio: var(--art-ratio); overflow: hidden; }
 .category-card .category-product-crop > img { position: absolute; min-width: 0; max-width: none; object-fit: fill; }
+.catalog-page .category-card .cytobrush-category-art { height: 185px; align-self: end; place-items: end center; }
 .cytobrush-category-art .cytobrush-variant-art { height: 185px; width: 48.31px; }
+/* Wider product groups need more space than the narrow syringe artwork. */
+#category-7 .category-product-art { width: calc(100% + 26px); margin-left: -26px; }
+#category-5 .category-product-art,
+#category-8 .category-product-art,
+#category-10 .category-product-art {
+  grid-column: 1 / -1;
+  justify-self: end;
+  width: 76%;
+}
+/* Keep these three compositions at a comparable visible height. */
+#category-5 .category-product-crop { width: min(84%, 165px); }
+#category-8 .category-product-crop { width: min(100%, 214.78px); }
+#category-10 .category-product-crop { width: min(100%, 207.32px); }
 
 .news-page a.news-card { color: inherit; text-decoration: none; cursor: pointer; }
 .news-page a.news-card:focus-visible { outline: 2px solid #00c7b2; outline-offset: 3px; }

@@ -22,9 +22,18 @@ const canvasMenu = document.querySelector(".canvas-menu")
     entries.filter((entry) => entry.isIntersecting).forEach(({ target }, index) => show(target, index * 70))
   }, { threshold: 0.2, rootMargin: "0px 0px -24px 0px" })
 
-  const selector = ".section-heading, .hero-copy, .hero-media, .hero-image, .product-card, .category-card, .pharma-card, .news-card, .partner-card, .certificate-card, .photo-card, .milestone, .process-grid > article, .stats > article, .stats-grid > article, .values-grid > article, .goal-list > article, .tech-grid > *"
+  const selector = [
+    ".featured-image, .featured-copy, .article-image, .news-article > .news-hero, .article-content > h1, .article-copy > *, .article-content > .back-link",
+    ".variant-card, .syringe-detail-variants > .detail-art",
+    ".section-heading, .hero-copy, .hero-media, .hero-image, .product-card, .category-card, .pharma-card, .news-card, .partner-card, .certificate-card, .photo-card, .milestone, .process-grid > article, .stats > article, .stats-grid > article, .values-grid > article, .goal-list > article, .tech-grid > *",
+  ].join(", ")
+  const scopes = [
+    "main > section, main > .content, main > .container",
+    "main > .news-wrap, main.article-page",
+    "main > .page-grid > .sidebar, main > .page-grid > .product-content",
+  ].join(", ")
   const targets = new Set()
-  document.querySelectorAll("main > section, main > .content, main > .container").forEach((section) => {
+  document.querySelectorAll(scopes).forEach((section) => {
     const parts = [...section.children].filter((child) => !child.matches("script, style"))
     ;(parts.length ? parts : [section]).forEach((part) => {
       const nested = [...part.querySelectorAll(selector)]
