@@ -1,6 +1,67 @@
 const menuButton = document.querySelector(".menu-button")
 const canvasMenu = document.querySelector(".canvas-menu")
 
+// Match the reference site's reveal: 64px rise, 700ms ease, 70ms stagger.
+;(() => {
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
+  if (motion.matches || !("IntersectionObserver" in window) || !Element.prototype.animate) return
+
+  const pending = new Map()
+  const show = (target, delay = 0) => {
+    const animation = pending.get(target)
+    if (!animation) return
+    observer.unobserve(target)
+    animation.effect.updateTiming({ delay })
+    animation.play()
+    animation.finished.then(() => {
+      animation.cancel()
+      pending.delete(target)
+    }).catch(() => {})
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.filter((entry) => entry.isIntersecting).forEach(({ target }, index) => show(target, index * 70))
+  }, { threshold: 0.2, rootMargin: "0px 0px -24px 0px" })
+
+  const selector = ".section-heading, .hero-copy, .hero-media, .hero-image, .product-card, .category-card, .pharma-card, .news-card, .partner-card, .certificate-card, .photo-card, .milestone, .process-grid > article, .stats > article, .stats-grid > article, .values-grid > article, .goal-list > article, .tech-grid > *"
+  const targets = new Set()
+  document.querySelectorAll("main > section, main > .content, main > .container").forEach((section) => {
+    const parts = [...section.children].filter((child) => !child.matches("script, style"))
+    ;(parts.length ? parts : [section]).forEach((part) => {
+      const nested = [...part.querySelectorAll(selector)]
+      if (part.matches(selector) || !nested.length) targets.add(part)
+      else nested.forEach((item) => targets.add(item))
+    })
+  })
+  let visibleIndex = 0
+  targets.forEach((target) => {
+    if ([...targets].some((parent) => parent !== target && parent.contains(target))) return
+    const bounds = target.getBoundingClientRect()
+    if (!bounds.height || target.contains(document.activeElement)) return
+    const animation = target.animate([
+      { opacity: 0, translate: "0 64px" },
+      { opacity: 1, translate: "0 0" },
+    ], { duration: 700, easing: "ease", fill: "both" })
+    animation.pause()
+    pending.set(target, animation)
+    if (bounds.top < window.innerHeight * 0.92 && bounds.top > -40) show(target, visibleIndex++ * 70)
+    else observer.observe(target)
+  })
+  document.addEventListener("focusin", () => {
+    pending.forEach((animation, target) => {
+      if (!target.contains(document.activeElement)) return
+      observer.unobserve(target)
+      animation.cancel()
+      pending.delete(target)
+    })
+  })
+  motion.addEventListener("change", () => {
+    if (!motion.matches) return
+    observer.disconnect()
+    pending.forEach((animation) => animation.cancel())
+    pending.clear()
+  })
+})()
+
 const navDropdowns = [...document.querySelectorAll(".navigation .nav-dropdown")]
 navDropdowns.forEach((dropdown) => {
   dropdown.addEventListener("pointerenter", (event) => {
@@ -27,49 +88,6 @@ document.addEventListener("keydown", (event) => {
     if (!dropdown.open) return
     if (dropdown.contains(document.activeElement)) dropdown.querySelector("summary").focus()
     dropdown.open = false
-  })
-})
-
-// Reveal the product history in order when it scrolls into view.
-document.querySelectorAll(".timeline").forEach((timeline) => {
-  if (timeline.closest(".about-page")) return
-  const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
-  if (motion.matches || !("IntersectionObserver" in window) || !Element.prototype.animate) return
-
-  const cards = [...timeline.querySelectorAll(".milestone")]
-  const compact = window.matchMedia("(max-width: 520px)").matches
-  const animations = cards.map((card, index) => {
-    const direction = index % 2 === 0 ? -40 : 40
-    const animation = card.animate([
-      { opacity: 0, transform: `translateY(${direction}px)` },
-      { opacity: 1, transform: "translateY(0)" },
-    ], {
-      duration: 700,
-      delay: compact ? 0 : index * 280,
-      easing: "cubic-bezier(.22, 1, .36, 1)",
-      fill: "both",
-    })
-    animation.pause()
-    animation.finished.then(() => animation.cancel()).catch(() => {})
-    return animation
-  })
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return
-      if (compact) animations[cards.indexOf(entry.target)].play()
-      else animations.forEach((animation) => animation.play())
-      observer.unobserve(entry.target)
-    })
-  }, { threshold: 0.15 })
-
-  if (compact) cards.forEach((card) => observer.observe(card))
-  else observer.observe(timeline)
-
-  motion.addEventListener("change", () => {
-    if (!motion.matches) return
-    observer.disconnect()
-    animations.forEach((animation) => animation.cancel())
   })
 })
 
@@ -265,20 +283,21 @@ if (typeof Swiper !== "undefined") {
     }))
   })
 
-  // Both partner rows advance on one clock and pause together.
+  // Both partner rows advance on one clock, including while hovered.
   if (partnerCarousels.length) {
     const partners = document.querySelector(".partners")
-    let dragging = false
+    const dragging = new Set()
     partnerCarousels.forEach((swiper) => {
-      swiper.on("touchStart", () => { dragging = true })
-      swiper.on("touchEnd", () => { dragging = false })
+      swiper.on("touchStart", () => { dragging.add(swiper) })
+      swiper.on("touchEnd", () => { dragging.delete(swiper) })
     })
+    partners.addEventListener("pointercancel", () => dragging.clear())
     window.setInterval(() => {
-      if (reducedMotion.matches || document.hidden || dragging ||
-          partners.matches(":hover") || partners.contains(document.activeElement) ||
+      if (reducedMotion.matches || document.hidden || dragging.size ||
+          partners.contains(document.activeElement) ||
           partnerCarousels.some((swiper) => swiper.animating)) return
       partnerCarousels.forEach((swiper) => swiper.slideNext())
-    }, 3500)
+    }, 1800)
   }
 
   document.querySelectorAll(".slider-shell").forEach((shell) => {
