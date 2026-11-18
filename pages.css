@@ -625,7 +625,7 @@ h1, h2, h3, p { margin: 0; }
   width: 76%;
 }
 /* Keep these three compositions at a comparable visible height. */
-#category-5 .category-product-crop { width: min(84%, 165px); }
+#category-5 .category-product-crop { width: min(84%, 165px); transform: translateX(10px); }
 #category-8 .category-product-crop { width: min(100%, 214.78px); }
 #category-10 .category-product-crop { width: min(100%, 207.32px); }
 
